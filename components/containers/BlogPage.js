@@ -1,52 +1,63 @@
 import React, { Component, createElement } from 'react'
+import moment from 'moment'
+import { bind, map, each } from 'lodash'
 
 import { IMAGE_WIDTH, IMAGE_HEIGHT } from '../constants/blog'
+import posts from '../data/posts'
+import { formatDateTime } from '../helpers/blog'
 
 import BlogList from '../elements/BlogList'
 
-const width = IMAGE_WIDTH
-const height = IMAGE_HEIGHT
+const formatDateTimes = posts => {
+  each(posts, post => {
+    const { createdAt, updatedAt } = post.meta
 
-const items = [
-  {
-    text: 'Правило 1. Следуйте стандартам оформления кода.',
-    image: {
-      src: 'images/1.png',
-      alt: 'Правило 1',
-      width,
-      height
+    if (createdAt) {
+      post.meta.createdAt = formatDateTime(moment(createdAt))
     }
-  },
-  {
-    text: 'Правило 2. Давайте наглядные имена.',
-    image: {
-      src: 'images/2.png',
-      alt: 'Правило 2',
-      width,
-      height
+
+    if (updatedAt) {
+      post.meta.updatedAt = formatDateTime(moment(updatedAt))
     }
-  },
-  {
-    text: 'Правило 3. Комментируйте и документируйте.',
-    image: {
-      src: 'images/3.png',
-      alt: 'Правило 3',
-      width,
-      height
+  })
+}
+
+const setImageDefaultSize = posts => {
+  each(posts, post => {
+    if (post.image) {
+      post.image.width = IMAGE_WIDTH
+      post.image.height = IMAGE_HEIGHT
     }
-  }
-]
+  })
+}
 
 class BlogPage extends Component {
   constructor (props) {
     super (props)
 
-    this.state = { items }
+    formatDateTimes(posts)
+    setImageDefaultSize(posts)
+
+    this.state = { posts }
+    this.like = bind(this.like, this)
+  }
+
+  like (post_id) {
+    const posts = map(this.state.posts, post => {
+      if (post.id == post_id) {
+        const { rating } = post.meta
+        post.meta.rating = rating ? rating + 1 : 1
+      }
+
+      return post
+    })
+
+    this.setState({ posts })
   }
 
   render () {
-    const { items } = this.state
-    return createElement(BlogList, { items })
+    const { posts } = this.state
+    return createElement(BlogList, { posts, like: this.like })
   }
 }
 
