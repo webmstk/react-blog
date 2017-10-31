@@ -1,5 +1,5 @@
 import React, { createElement } from 'react'
-import PropTypes from 'prop-types'
+import BlogListTypes from '../prop_types'
 import { map, assign } from 'lodash'
 
 import BlogItem from './BlogItem'
@@ -23,9 +23,6 @@ const BlogList = ({ posts, like }) => {
   )
 }
 
-BlogList.propTypes = {
-  posts: PropTypes.array.isRequired,
-  like: PropTypes.func.isRequired
-}
+BlogList.propTypes = BlogListTypes
 
 export default BlogList

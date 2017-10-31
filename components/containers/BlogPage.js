@@ -22,7 +22,7 @@ const formatDateTimes = posts => {
   })
 }
 
-const setImageDefaultSize = posts => {
+const setDefaultImageSizes = posts => {
   each(posts, post => {
     if (post.image) {
       post.image.width = IMAGE_WIDTH
@@ -36,7 +36,7 @@ class BlogPage extends Component {
     super (props)
 
     formatDateTimes(posts)
-    setImageDefaultSize(posts)
+    setDefaultImageSizes(posts)
 
     this.state = { posts }
     this.like = bind(this.like, this)

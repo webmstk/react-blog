@@ -1,5 +1,5 @@
 import React, { createElement } from 'react'
-import PropTypes from 'prop-types'
+import LikeTypes from '../prop_types'
 
 import Button from '../ui/Button'
 
@@ -10,10 +10,7 @@ const Like = ({ rating, like }) => (
   )
 )
 
-Like.propTypes = {
-  like: PropTypes.func.isRequired,
-  rating: PropTypes.number
-}
+Like.propTypes = LikeTypes
 
 Like.defaultProps = {
   rating: 0
