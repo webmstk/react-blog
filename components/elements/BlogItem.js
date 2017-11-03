@@ -1,5 +1,5 @@
 import React, { createElement } from 'react'
-import BlogItemTypes from '../prop_types'
+import PropTypes from 'prop-types'
 
 import { formatDateTime } from '../helpers/blog'
 
@@ -17,6 +17,11 @@ const BlogItem = ({ text, image, meta, like }) => (
   )
 )
 
-BlogItem.propTypes = BlogItemTypes
+BlogItem.propTypes = {
+  text: PropTypes.string.isRequired,
+  like: PropTypes.func.isRequired,
+  image: PropTypes.object,
+  meta: PropTypes.shape(Meta.propTypes)
+}
 
 export default BlogItem

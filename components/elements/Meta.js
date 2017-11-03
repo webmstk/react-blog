@@ -1,5 +1,5 @@
 import React, { createElement } from 'react'
-import MetaTypes from '../prop_types'
+import PropTypes from 'prop-types'
 
 const Meta = ({ author, createdAt, updatedAt }) => (
   createElement('div', null,
@@ -9,6 +9,11 @@ const Meta = ({ author, createdAt, updatedAt }) => (
   )
 )
 
-Meta.propTypes = MetaTypes
+Meta.propTypes = {
+  author: PropTypes.string,
+  rating: PropTypes.number,
+  createdAt: PropTypes.string,
+  updatedAt: PropTypes.string
+}
 
 export default Meta
