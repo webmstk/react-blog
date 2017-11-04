@@ -13,9 +13,9 @@ const BlogList = ({ posts, like }) => {
 
   return (
     createElement('div', null,
-      map(posts, (post, key) => (
+      map(posts, post => (
         createElement(BlogItem, assign({}, {
-          key,
+          key: post.id,
           like: () => like(post.id)
         }, post))
       ))

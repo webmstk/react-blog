@@ -7,6 +7,7 @@ import posts from '../data/posts'
 import { formatDateTime } from '../helpers/blog'
 
 import BlogList from '../elements/BlogList'
+import DonutChart from '../elements/DonutChart'
 
 const formatDateTimes = posts => {
   each(posts, post => {
@@ -57,7 +58,12 @@ class BlogPage extends Component {
 
   render () {
     const { posts } = this.state
-    return createElement(BlogList, { posts, like: this.like })
+    const columns = posts.map(el => [el.title, el.meta.rating])
+
+    return createElement('div', null,
+      createElement(BlogList, { posts, like: this.like }),
+      createElement(DonutChart, { columns }, 'lol')
+    )
   }
 }
 
